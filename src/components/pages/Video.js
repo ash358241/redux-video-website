@@ -22,7 +22,7 @@ export default function Video() {
                         }
                     </div>
 
-                    <RelatedVideos />
+                    <RelatedVideos id={video?.id} title={video?.title} />
                 </div>
             </div>
         </section>
