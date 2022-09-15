@@ -1,43 +1,71 @@
 // import Success from "../ui/Success";
+import { useState } from "react";
+import { useAddVideoMutation } from "../../fatures/api/apiSlice";
 import TextArea from "../ui/TextArea";
 import TextInput from "../ui/TextInput";
 
 export default function Form() {
+    const [addVideo, {data}] = useAddVideoMutation()
+
+    const [title, setTitle] = useState("")
+    const [author, setAuthor] = useState("")
+    const [description, setDescription] = useState("")
+    const [link, setLink] = useState("")
+    const [thumbnail, setThumbnail] = useState("")
+    const [date, setDate] = useState("")
+    const [duration, setDuration] = useState("")
+    const [views, setViews] = useState("")
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        addVideo({
+            title,
+            author,
+            description,
+            link,
+            thumbnail,
+            date,
+            duration,
+            views,
+        })
+        alert("Form added!")
+    }
+
     return (
-        <form action="#" method="POST">
+        <form method="POST" onSubmit={handleSubmit}>
             <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                     <div className="grid grid-cols-6 gap-6">
                         <div className="col-span-6 sm:col-span-3">
-                            <TextInput title="Video Title" />
+                            <TextInput title="Video Title" value={title} onChange={e => setTitle(e.target.value)} />
                         </div>
 
                         <div className="col-span-6 sm:col-span-3">
-                            <TextInput title="Author" />
+                            <TextInput title="Author" value={author} onChange={e => setAuthor(e.target.value)}/>
                         </div>
 
                         <div className="col-span-6">
-                            <TextArea title="Description" />
+                            <TextArea title="Description" value={description} onChange={e => setDescription(e.target.value)}/>
                         </div>
 
                         <div className="col-span-6">
-                            <TextInput title="YouTube Video link" />
+                            <TextInput title="YouTube Video link" value={link} onChange={e => setLink(e.target.value)} />
                         </div>
 
                         <div className="col-span-6">
-                            <TextInput title="Thumbnail link" />
+                            <TextInput title="Thumbnail link" value={thumbnail} onChange={e => setThumbnail(e.target.value)} />
                         </div>
 
                         <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                            <TextInput title="Upload Date" />
+                            <TextInput title="Upload Date" value={date} onChange={e => setDate(e.target.value)}/>
                         </div>
 
                         <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <TextInput title="Video Duration" />
+                            <TextInput title="Video Duration" value={duration} onChange={e => setDuration(e.target.value)}/>
                         </div>
 
                         <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <TextInput title="Video no of views" />
+                            <TextInput title="Video no of views" value={views} onChange={e => setViews(e.target.value)}/>
                         </div>
                     </div>
                 </div>
