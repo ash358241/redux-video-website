@@ -17,7 +17,7 @@ export default function Video() {
                             video?.id &&
                             <>
                                 <Player title={video.title} link={video.link} />
-                                <Description title={video.title} date={video.date} description={video.description} />
+                                <Description id={video?.id} title={video.title} date={video.date} description={video.description} />
                             </>
                         }
                     </div>

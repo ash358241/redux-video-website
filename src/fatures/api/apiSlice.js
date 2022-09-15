@@ -1,4 +1,4 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const apiSlice = createApi({
     reducerPath: "api",
@@ -13,7 +13,7 @@ export const apiSlice = createApi({
             query: (videoId) => `/videos/${videoId}`
         }),
         getRelatedVideos: builder.query({
-            query: ({id, title}) => {
+            query: ({ id, title }) => {
                 // ?title_like=react&title_like=java&_limit=1
                 const tags = title.split(" ")
                 const likes = tags.map(tag => `title_like=${tag}`)
@@ -27,8 +27,14 @@ export const apiSlice = createApi({
                 method: "POST",
                 body: data
             })
+        }),
+        deleteVideo: builder.mutation({
+            query: (id) => ({
+                url: `/videos/${id}`,
+                method: "DELETE",
+            })
         })
     })
 })
 
-export const {useGetVideosQuery, useGetVideoQuery, useGetRelatedVideosQuery, useAddVideoMutation} = apiSlice;
+export const { useGetVideosQuery, useGetVideoQuery, useGetRelatedVideosQuery, useAddVideoMutation, useDeleteVideoMutation } = apiSlice;
