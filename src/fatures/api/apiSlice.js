@@ -7,7 +7,8 @@ export const apiSlice = createApi({
     }),
     endpoints: (builder) => ({
         getVideos: builder.query({
-            query: () => '/videos'
+            query: () => '/videos',
+            keepUnusedDataFor: 10,
         }),
         getVideo: builder.query({
             query: (videoId) => `/videos/${videoId}`
@@ -19,7 +20,8 @@ export const apiSlice = createApi({
                 const likes = tags.map(tag => `title_like=${tag}`)
                 const queryString = `videos/?${likes.join("&")}&_limit=4`
                 return queryString;
-            }
+            },
+            keepUnusedDataFor: 10,
         }),
         addVideo: builder.mutation({
             query: (data) => ({
@@ -33,8 +35,15 @@ export const apiSlice = createApi({
                 url: `/videos/${id}`,
                 method: "DELETE",
             })
+        }),
+        editVideo: builder.mutation({
+            query: ({id, data}) => ({
+                url: `/videos/${id}`,
+                method: "PATCH",
+                body: data
+            })
         })
     })
 })
 
-export const { useGetVideosQuery, useGetVideoQuery, useGetRelatedVideosQuery, useAddVideoMutation, useDeleteVideoMutation } = apiSlice;
+export const { useGetVideosQuery, useGetVideoQuery, useGetRelatedVideosQuery, useAddVideoMutation, useDeleteVideoMutation, useEditVideoMutation } = apiSlice;

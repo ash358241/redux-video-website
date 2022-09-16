@@ -1,6 +1,10 @@
+import { useParams } from "react-router-dom";
+import { useGetVideoQuery } from "../../fatures/api/apiSlice";
 import Form from "./Form";
 
 export default function EditVideo() {
+    const {videoId} = useParams();
+    const {data: video} = useGetVideoQuery(videoId);
     return (
         <div className="max-w-7xl mx-auto px-5 lg:px-0">
             <div className="w-full">
@@ -13,7 +17,9 @@ export default function EditVideo() {
                     </p>
                 </div>
                 <div className="mt-5 md:mt-0 md:col-span-2">
-                    <Form />
+                    {
+                        video?.id && <Form video={video} />
+                    }
                 </div>
             </div>
         </div>
